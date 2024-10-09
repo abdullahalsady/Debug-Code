@@ -30,8 +30,8 @@ async function loadCategories() {
                   <h3 class="text-lg font-semibold">${category.category}</h3>
               `;
 
-              // Add event listener to toggle active class
-              categoryCard.addEventListener('click', () => {
+              // Add event listener to fetch pets by category when clicked
+              categoryCard.addEventListener('click', async () => {
                   // Remove active class from any previously active card
                   const activeCard = document.querySelector('.active');
                   if (activeCard) {
@@ -39,7 +39,10 @@ async function loadCategories() {
                       activeCard.classList.add('bg-white', 'border-gray-200'); // Reset to default
                   }
                   // Add active class to clicked card
-                  categoryCard.classList.add('active',  'border-[#F0ABFC]', 'text-fuchsia-300'); // Set active classes
+                  categoryCard.classList.add('active', 'border-[#F0ABFC]', 'text-fuchsia-300'); // Set active classes
+
+                  // Fetch pets by category
+                  await fetchPetsByCategory(category.category);
               });
 
               // Append the card to the container
@@ -50,6 +53,26 @@ async function loadCategories() {
       }
   } catch (error) {
       console.error('Error loading categories:', error);
+  }
+}
+
+// Function to fetch pets by category
+async function fetchPetsByCategory(categoryName) {
+  const petCardsContainer = document.getElementById('petCardsContainer');
+  try {
+      const response = await fetch(`https://openapi.programming-hero.com/api/peddy/category/${categoryName}`);
+      const data = await response.json();
+
+      if (data.status === true && data.data.length >0 ) {
+        console.log(data.data);
+          displayPetCards(data.data);
+      } else {
+        petCardsContainer.innerHTML = '';
+
+      }
+  } catch (error) {
+      console.alert('Error fetching pets by category:', error);
+
   }
 }
 
@@ -163,7 +186,7 @@ function delay(ms) {
 }
 
 // Fetch pet data on page load
-fetchPetData();
+// fetchPetData();
 
 
 
