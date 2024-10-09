@@ -1,0 +1,21 @@
+/* Custom scrollbar-hide class */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .scrollbar-hide {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;     /* Firefox */
+  }
+
+  #petImageContainer {
+    /* height: 60vh; Set height to 90% of the viewport height */
+    /* overflow-y: auto; Enable vertical scrolling */
+    border: 1px solid #ccc; /* Optional: border for the container */
+    border-radius: 0.5rem; /* Optional: rounded corners */
+    padding: 1rem; /* Optional: padding inside the container */
+    /* margin-top: 1rem; Optional: spacing above the container */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none; 
+}
+  
