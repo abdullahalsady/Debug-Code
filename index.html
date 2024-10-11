@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en" class="dark">
+<head >
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Peddy</title>
@@ -114,80 +114,63 @@
     </header>
 
     <main>
-        <section id="target-section" class="py-12 bg-white">
-            <div class="w-[90%] mx-auto text-center">
+      <section id="target-section" class="py-12 bg-white">
+          <div class="w-[90%] mx-auto text-center">
               <!-- Title Section -->
-              <h2 class="text-3xl md:text-4xl  font-bold mb-4">Adopt Your Best Friend</h2>
-              <p class="text-gray-500 mb-8">It is a long established fact that a reader will be distracted by the readable content of a <br>page when looking at its layout. The point of using Lorem Ipsum is that it has a...</p>
-              
+              <h2 class="text-3xl md:text-4xl font-bold mb-4">Adopt Your Best Friend</h2>
+              <p class="text-gray-500 mb-8">
+                  It is a long established fact that a reader will be distracted by the readable content of a
+                  <br>page when looking at its layout. The point of using Lorem Ipsum is that it has a...
+              </p>
+  
               <!-- Pet Options -->
               <div id="category-container" class="grid grid-cols-1 mx-auto sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Cards will be dynamically inserted here -->
+                  <!-- Cards will be dynamically inserted here -->
               </div>
-            </div>
-          </section>
-
-          <div  class="w-[90%] bg-white flex justify-between items-center py-4  mx-auto">
-            <!-- Left side text -->
-            <div class="text-black text-lg font-bold">
-                Best Deal For You
-            </div>
-        
-            <!-- Right side button -->
-            <button id="sortByPriceBtn" class="bg-teal-500 text-white py-2 px-4 rounded-lg">
-                Sort by Price
-            </button>
-        </div>
-
-        
-        
-        <div class="container mx-auto p-4 w-11/12">
-
-        
+          </div>
+      </section>
+  
+      <div class="w-[90%] bg-white flex justify-between items-center py-4 mx-auto">
+          <!-- Left side text -->
+          <div class="text-black text-lg font-bold">
+              Best Deal For You
+          </div>
+  
+          <!-- Right side button -->
+          <button id="sortByPriceBtn" class="bg-teal-500 text-white py-2 px-4 rounded-lg">
+              Sort by Price
+          </button>
+      </div>
+  
+      <div class="container mx-auto p-4 w-11/12">
           <!-- Cards and Image Container -->
-          <div id="" class="lg:flex lg:gap-2">
-            <!-- Cards will be injected here dynamically by JavaScript -->
-            <div id="petCardsContainer" class="lg:w-[70%] border grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 p-2 border-zinc-200 rounded-lg gap-6">
-              <!-- Loading Spinner (initially hidden) -->
-              <div id="spinnerContainer" class="hidden flex justify-center items-center w-full">
-                <span class="loading loading-infinity loading-lg"></span>
+          <div class="lg:flex lg:gap-2">
+              <!-- Cards will be injected here dynamically by JavaScript -->
+              <div id="petCardsContainer" class="lg:w-[70%] border min-h-40 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 p-2 border-zinc-200 rounded-lg gap-6 relative">
+                  <!-- Loading Spinner (initially hidden) -->
+                  <div id="spinnerContainer" class="absolute inset-0 flex justify-center items-center bg-white/70 z-10 hidden">
+                      <span class="loading loading-infinity loading-lg"></span>
+                  </div>
               </div>
-            </div>
-        
-            <!-- Placeholder for a separate image container (if needed) -->
-            <div id="spinnerContainer" class="hidden mx-auto flex">Loading...</div>
-            <div id="petCardsContainer" class="hidden"></div>
-            <div id="noDataMessage" class="hidden">No data available.</div>
-            <div id="petImageContainer" class="lg:w-[30%] lg:mt-0 mt-4 border border-zinc-200"></div>  
+              <div id="petImageContainer" class="lg:w-[30%] lg:mt-0 mt-4 border border-zinc-200"></div>
           </div>
-        
-          <!-- Placeholder message when no data is found -->
-          <div id="noDataMessage" class="hidden text-center text-gray-500 mt-6">
-            <p>No pets found. Please check back later!</p>
-          </div>
-        </div>
-        
-        <!-- Modal Container (Initially hidden) -->
-        <div id="petDetailsModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50">
+      </div>
+  
+      <!-- Modal Container (Initially hidden) -->
+      <div id="petDetailsModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50">
           <div class="bg-white rounded-lg shadow-lg w-11/12 md:w-1/2 lg:w-1/3 p-6">
-            <div id="modalContent" class="flex flex-col items-center">
-              <!-- Content will be dynamically added via JavaScript -->
-            </div>
-        
-            <!-- Close Button -->
-            <div class="flex justify-end mt-4">
-              <button class="bg-red-500 text-white px-4 py-2 rounded-lg" onclick="closeModal()">Cancel</button>
-            </div>
+              <div id="modalContent" class="flex flex-col items-center">
+                  <!-- Content will be dynamically added via JavaScript -->
+              </div>
+  
+              <!-- Close Button -->
+              <div class="flex justify-end mt-4">
+                  <button class="bg-red-500 text-white px-4 py-2 rounded-lg" onclick="closeModal()">Cancel</button>
+              </div>
           </div>
-        </div>
-        
-
-
-          
-          
-          
-          
-    </main>
+      </div>
+  </main>
+  
     
     <footer class="bg-black text-gray-400 py-20">
         <div class="w-11/12 mx-auto px-4 flex flex-col md:flex-row justify-between">

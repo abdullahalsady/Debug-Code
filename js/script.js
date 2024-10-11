@@ -1,7 +1,7 @@
 // Function to fetch and display categories
 async function loadCategories() {
   try {
-      const response = await fetch('https://openapi.programming-hero.com/api/peddy/categories'); // The API link
+      const response = await fetch('https://openapi.programming-hero.com/api/peddy/categories'); 
       const data = await response.json();
 
       if (data.status) {
@@ -56,25 +56,94 @@ async function loadCategories() {
   }
 }
 
-// Function to fetch pets by category
 async function fetchPetsByCategory(categoryName) {
-  const petCardsContainer = document.getElementById('petCardsContainer');
-  try {
-      const response = await fetch(`https://openapi.programming-hero.com/api/peddy/category/${categoryName}`);
-      const data = await response.json();
+    const petCardsContainer = document.getElementById('petCardsContainer');
+    
+    // Show loading spinner
+    petCardsContainer.innerHTML = `
+        <div class="absolute inset-0 flex justify-center items-center bg-white/70 z-10">
+            <span class="loading loading-infinity loading-lg"></span>
+        </div>
+    `;
 
-      if (data.status === true && data.data.length >0 ) {
-        console.log(data.data);
-          displayPetCards(data.data);
-      } else {
+    // Delay function to simulate loading
+    const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+    try {
+        // Wait for 2 seconds before making the API call
+        await delay(2000);
+
+        const response = await fetch(`https://openapi.programming-hero.com/api/peddy/category/${categoryName}`);
+        const data = await response.json();
+
+
+        // Check if the category is 'bird'
+        if (categoryName.toLowerCase() === 'bird') {
+            // Remove the grid layout if the category is bird
+            petCardsContainer.classList.remove('grid', 'grid-cols-1', 'md:grid-cols-2', 'lg:grid-cols-3');
+        } else {
+            // Add the grid layout for all other categories
+            petCardsContainer.classList.add('grid', 'grid-cols-1', 'md:grid-cols-2', 'lg:grid-cols-3');
+        }
+
+        // Clear the loading spinner
         petCardsContainer.innerHTML = '';
 
-      }
-  } catch (error) {
-      console.alert('Error fetching pets by category:', error);
+        if (data.status === true && data.data.length > 0) {
+            console.log(data.data);
+            // Display the fetched pet cards
+            displayPetCards(data.data);
+        } else {
+            // Clear existing cards
+            petCardsContainer.innerHTML = '';
 
-  }
+            // Create a no data available section
+            const noDataSection = document.createElement('div');
+            noDataSection.classList.add('flex', 'items-center', 'justify-center', 'w-full', 'bg-gray-100', 'p-4');
+
+            noDataSection.innerHTML = `
+                <div class="text-center p-6 bg-white shadow-lg rounded-lg w-full max-w-2xl">
+                    <div class="flex justify-center mb-4">
+                        <img src="../assets/error.webp" alt="No Data Icon" class="w-16 h-16">
+                    </div>
+                    <h1 class="text-2xl font-semibold text-gray-800">No Information Available</h1>
+                    <p class="mt-4 text-gray-600">
+                        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a.
+                    </p>
+                </div>
+            `;
+
+            petCardsContainer.appendChild(noDataSection);
+        }
+    } catch (error) {
+        console.error('Error fetching pets by category:', error);
+
+        // Clear existing cards
+        petCardsContainer.innerHTML = '';
+
+        // Create an error section
+        const errorSection = document.createElement('div');
+        errorSection.classList.add('flex', 'items-center', 'justify-center', 'w-full', 'p-4');
+        errorSection.innerHTML = `
+            <div class="text-center p-6 rounded-lg w-full max-w-2xl" style="height: 150px;">
+                <div class="flex justify-center mb-4">
+                    <img src="path/to/your/icon.svg" alt="No Data Icon" class="w-16 h-16">
+                </div>
+                <h1 class="text-2xl font-semibold text-gray-800">No Information Available</h1>
+                <p class="mt-4 text-gray-600">
+                    There was an error fetching the data. Please try again later.
+                </p>
+            </div>
+        `;
+
+        petCardsContainer.appendChild(errorSection);
+    }
 }
+
+
+  
+  
+
 
   
 
@@ -112,14 +181,14 @@ async function fetchPetData() {
     } catch (error) {
         console.error('Error fetching data:', error);
         document.getElementById('noDataMessage').classList.remove('hidden');
-        spinnerContainer.classList.add('hidden'); // Hide spinner in case of error
+        spinnerContainer.classList.add('hidden'); 
     }
 }
 
 // Function to display pet cards
 function displayPetCards(petsArray) {
     const container = document.getElementById('petCardsContainer');
-    container.innerHTML = ''; // Clear the container before rendering
+    container.innerHTML = ''; 
 
     petsArray.forEach(pet => {
         const cardHTML = `
@@ -146,16 +215,11 @@ function displayPetCards(petsArray) {
     });
 }
 
-// Copy pet image to the container
 function copyPetImage(imageUrl) {
-    // Add the image URL to the array
     copiedImages.push(imageUrl);
-
-    // Display the copied images in the petImageContainer
     displayCopiedImages();
 }
 
-// Display copied pet images in a two-column layout
 // Display copied pet images in a two-column layout
 function displayCopiedImages() {
   const petImageContainer = document.getElementById('petImageContainer');
@@ -185,18 +249,38 @@ function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-// Fetch pet data on page load
-// fetchPetData();
 
 
 
 
 
-// Function to sort pets by price (Descending order)
-function sortByPrice() {
-  const sortedPets = [...pets].sort((a, b) => b.price - a.price); // Descending order
-  displayPetCards(sortedPets);
+// Assuming you have your categoryName defined somewhere
+let categoryName = 'someCategory'; // Set this to your current category as needed
+
+// Function to sort by price and update layout
+function sortByPrice(categoryName) {
+    const sortedPets = [...pets].sort((a, b) => b.price - a.price);
+    
+    // Get the petCardsContainer
+    const petCardsContainer = document.getElementById('petCardsContainer'); // Adjust the ID as needed
+
+    if (categoryName.toLowerCase() === 'bird') {
+        // Remove the grid layout if the category is bird
+        petCardsContainer.classList.remove('grid', 'grid-cols-1', 'md:grid-cols-2', 'lg:grid-cols-3');
+    } else {
+        // Add the grid layout for all other categories
+        petCardsContainer.classList.add('grid', 'grid-cols-1', 'md:grid-cols-2', 'lg:grid-cols-3');
+    }
+
+    displayPetCards(sortedPets);
 }
+
+// Add event listener to the button
+document.getElementById('sortByPriceBtn').addEventListener('click', () => {
+    sortByPrice(categoryName);
+});
+
+
 
 // Attach event listener to sort button
 document.getElementById('sortByPriceBtn').addEventListener('click', sortByPrice);
@@ -206,14 +290,10 @@ async function toggleDescription(petId) {
   const modal = document.getElementById('petDetailsModal');
   const modalContent = document.getElementById('modalContent');
 
-  // Show the modal
   modal.classList.remove('hidden');
-
-  // Get the specific pet data from the global pets array
   const pet = pets.find(p => p.petId === petId);
 
   if (pet) {
-    // Populate modal with pet details
     modalContent.innerHTML = `
     <div class="bg-white rounded-lg p-6 w-full max-w-md mx-auto overflow-y-scroll scrollbar-hide" style="max-height: 80vh;">
       <!-- Image Section -->
@@ -238,23 +318,21 @@ async function toggleDescription(petId) {
       </div>
     </div>
   `;
-  
-
 
   } else {
     modalContent.innerHTML = `<p class="text-red-500">Pet details not found.</p>`;
   }
 }
 
-// Function to close the modal
+
+
+
 function closeModal() {
   document.getElementById('petDetailsModal').classList.add('hidden');
 }
 
 
-// Function to handle the adoption process with countdown and button state change
 function startAdoptionProcess(button) {
-  // Create and show the pop-up modal with countdown
   const adoptionPopup = document.createElement('div');
   adoptionPopup.classList.add('fixed', 'inset-0', 'flex', 'items-center', 'justify-center', 'bg-black', 'bg-opacity-50', 'z-50');
   adoptionPopup.innerHTML = `
@@ -267,7 +345,6 @@ function startAdoptionProcess(button) {
   `;
   document.body.appendChild(adoptionPopup);
 
-  // Countdown logic
   let countdown = 3;
   const countdownElement = adoptionPopup.querySelector('#countdown');
   const countdownInterval = setInterval(() => {
@@ -275,21 +352,17 @@ function startAdoptionProcess(button) {
     countdownElement.textContent = countdown;
     if (countdown === 0) {
       clearInterval(countdownInterval);
-      // Hide the popup after countdown reaches 0
       document.body.removeChild(adoptionPopup);
-
-      // Disable the "Adopt" button and update its text to "Adopted"
       button.disabled = true;
       button.textContent = 'Adopted';
-      button.classList.add('bg-gray-500', 'cursor-not-allowed'); // Optional: Add styles for the disabled state
+      button.classList.add('bg-gray-500', 'cursor-not-allowed'); 
     }
-  }, 1000); // Countdown every 1 second
+  }, 1000); 
 }
 
-// ...
 
 
-// Fetch pet data when the page loads
+
 window.onload = function() {
   loadCategories();
   fetchPetData();
