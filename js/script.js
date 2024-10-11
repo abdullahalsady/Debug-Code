@@ -104,7 +104,7 @@ async function fetchPetsByCategory(categoryName) {
             noDataSection.innerHTML = `
                 <div class="text-center p-6 bg-white shadow-lg rounded-lg w-full max-w-2xl">
                     <div class="flex justify-center mb-4">
-                        <img src="../assets/error.webp" alt="No Data Icon" class="w-16 h-16">
+                        <img src="./../assets/error.webp" alt="No Data Icon" class="w-16 h-16">
                     </div>
                     <h1 class="text-2xl font-semibold text-gray-800">No Information Available</h1>
                     <p class="mt-4 text-gray-600">
@@ -337,7 +337,7 @@ function startAdoptionProcess(button) {
   adoptionPopup.classList.add('fixed', 'inset-0', 'flex', 'items-center', 'justify-center', 'bg-black', 'bg-opacity-50', 'z-50');
   adoptionPopup.innerHTML = `
     <div class="bg-white p-8 rounded-lg shadow-lg flex flex-col items-center">
-      <img src="../assets/hand.png" class="w-16 h-16 mb-4" alt="Congrats">
+      <img src="./../assets/hand.png" class="w-16 h-16 mb-4" alt="Congrats">
       <h3 class="text-2xl font-bold mb-4">Congrats!</h3>
       <p class="text-gray-700 mb-4">Adoption process is started for your pet</p>
       <p id="countdown" class="text-3xl font-bold text-green-500">3</p>
